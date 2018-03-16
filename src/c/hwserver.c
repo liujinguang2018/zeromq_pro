@@ -4,7 +4,7 @@
 //  Sends "Hello" to server, expects "World" back
 //
 
-#include <zmq.h>
+#include "zhelpers.h"
 
 int main(void)
 {
@@ -39,4 +39,10 @@ int main(void)
         zmq_msg_send(&reply, responder, 0);
         zmq_msg_close(&reply);
     }
+
+    //永远不会运行到这里
+    zmq_close(responder);
+    zmq_ctx_destroy(context);
+
+    return 0;
 }

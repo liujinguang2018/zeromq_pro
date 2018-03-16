@@ -8,3 +8,6 @@ install(TARGETS hwclient DESTINATION bin)
 
 add_executable(version version.c)
 install(TARGETS version DESTINATION bin)
+
+add_executable(wuserver wuserver.c)
+install(TARGETS wuserver DESTINATION bin)

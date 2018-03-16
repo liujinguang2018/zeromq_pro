@@ -3,8 +3,7 @@
 //  Connects REQ socket to tcp://localhost:5555
 //  Sends "Hello" to server, expects "World" back
 
-#include <zmq.h>
-#include <stdio.h>
+#include "zhelpers.h"
 
 int main(void)
 {
