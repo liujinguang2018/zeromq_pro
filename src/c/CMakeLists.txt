@@ -11,3 +11,6 @@ install(TARGETS version DESTINATION bin)
 
 add_executable(wuserver wuserver.c)
 install(TARGETS wuserver DESTINATION bin)
+
+add_executable(wuclient wuclient.c)
+install(TARGETS wuclient DESTINATION bin)

@@ -1,4 +1,4 @@
-// 天气更新服务器
+﻿// 天气更新服务器
 // 发布随机的天气更新
 
 #include "zhelpers.h"
@@ -15,6 +15,8 @@ int main(void)
         printf("bind to %s failed\n", paddr);
         return 1;
     }
+
+    #if !defined(WIN32)
     const char *pipc = "ipc://weather.ipc";
     rc = zmq_bind(publisher, pipc);
     if (rc != 0)
@@ -22,9 +24,10 @@ int main(void)
         printf("bind to %s failed\n", pipc);
         return 1;        
     }
+    #endif
 
     //初始化随机数发生器
-    srandom(time(NULL));
+    srandom((unsigned)time(NULL));
 
     while (1) {
         //获取随机值
@@ -35,7 +38,8 @@ int main(void)
 
         //发布订阅消息
         char update[32];
-        snprintf(update, sizeof(update), "%05d %d %d", zipcode, temperature, relhumidity);
+        snprintf(update, sizeof(update), sizeof(update)-1, "%05d %d %d", zipcode, temperature, relhumidity);
+        printf("%s\n", update);
         zmq_send(publisher, update, strlen(update), 0);
     }
 
